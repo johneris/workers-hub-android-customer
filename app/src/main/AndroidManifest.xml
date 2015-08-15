@@ -1,21 +1,45 @@
-<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="ph.coreproc.android.devcup" >
+    package="ph.coreproc.android.devcup">
 
     <application
+        android:name="ph.coreproc.android.devcup.App"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/AppTheme">
+
+        <!--ActiveAndroid-->
+        <meta-data
+            android:name="AA_DB_NAME"
+            android:value="devcup.db" />
+        <meta-data
+            android:name="AA_DB_VERSION"
+            android:value="1" />
+        <meta-data
+            android:name="AA_MODELS"
+            android:value="ph.coreproc.android.devcup.models.Contributor" />
+        <!--ActiveAndroid-->
+
         <activity
-            android:name=".MainActivity"
-            android:label="@string/app_name" >
+            android:name="ph.coreproc.android.devcup.activities.MainActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name="ph.coreproc.android.devcup.activities.ExampleActivity"
+            android:label="@string/activity_title_example"
+            android:screenOrientation="portrait"/>
+
+        <activity
+            android:name="ph.coreproc.android.devcup.activities.LoginActivity"
+            android:label="@string/activity_title_login"
+            android:screenOrientation="portrait"/>
+
     </application>
 
 </manifest>
