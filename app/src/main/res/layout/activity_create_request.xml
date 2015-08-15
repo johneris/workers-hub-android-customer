@@ -101,51 +101,55 @@
                     android:paddingTop="@dimen/spacing_small"
                     android:text="Tags: "/>
 
-                <LinearLayout
+                <org.apmem.tools.layouts.FlowLayout
                     android:id="@+id/tagsContainer"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
-                    <include layout="@layout/layout_tag"/>
-
-                    <include layout="@layout/layout_tag"/>
+                    <!--<include layout="@layout/layout_tag"/>-->
+                    <!--<include layout="@layout/layout_tag"/>-->
+                    <!--<include layout="@layout/layout_tag"/>-->
+                    <!--<include layout="@layout/layout_tag"/>-->
 
                     <TextView
+                        android:id="@+id/tvAddTag"
                         style="@style/Button.Flat.Primary"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
+                        android:layout_marginBottom="@dimen/spacing_small"
+                        android:layout_marginTop="@dimen/spacing_small"
                         android:text="Add"/>
 
-                </LinearLayout>
+                </org.apmem.tools.layouts.FlowLayout>
 
             </LinearLayout>
 
 
-            <LinearLayout
+            <org.apmem.tools.layouts.FlowLayout
                 android:id="@+id/imagesContainer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/spacing_medium"
                 android:orientation="horizontal">
 
-                <include layout="@layout/card_request_image"/>
+                <!--<include layout="@layout/card_request_image"/>-->
 
-                <include layout="@layout/card_request_image"/>
+                <!--<include layout="@layout/card_request_image"/>-->
 
                 <include layout="@layout/card_request_image_add"/>
 
-            </LinearLayout>
+            </org.apmem.tools.layouts.FlowLayout>
 
             <Button
                 android:id="@+id/btnSubmit"
+                style="@style/Button.Raised.Primary"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Submit"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="@dimen/spacing_medium"
-                style="@style/Button.Raised.Primary"/>
+                android:text="Submit"/>
 
 
         </LinearLayout>

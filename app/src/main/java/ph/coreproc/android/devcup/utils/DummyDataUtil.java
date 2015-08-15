@@ -3,6 +3,7 @@ package ph.coreproc.android.devcup.utils;
 import java.util.ArrayList;
 import java.util.List;
 
+import ph.coreproc.android.devcup.models.Profession;
 import ph.coreproc.android.devcup.models.Request;
 
 /**
@@ -30,6 +31,15 @@ public class DummyDataUtil {
         }
 
         return requests;
+    }
+
+
+    public static List<Profession> getProfessions() {
+        List<Profession> professions = new ArrayList<>();
+        for (int i = 1; i <= 6; i++) {
+            professions.add(new Profession("Plumber" + i));
+        }
+        return professions;
     }
 
 }

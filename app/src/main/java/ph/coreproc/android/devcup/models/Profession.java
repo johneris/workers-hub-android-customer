@@ -10,4 +10,8 @@ public class Profession {
     @SerializedName("name")
     public String name;
 
+    public Profession(String name) {
+        this.name = name;
+    }
+
 }
