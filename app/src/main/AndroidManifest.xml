@@ -47,6 +47,12 @@
             android:label="@string/activity_title_customer_home"
             android:screenOrientation="portrait"/>
 
+        <activity
+            android:name="ph.coreproc.android.devcup.activities.CreateRequestActivity"
+            android:label="@string/activity_title_create_request"
+            android:screenOrientation="portrait"/>
+
+
     </application>
 
 </manifest>

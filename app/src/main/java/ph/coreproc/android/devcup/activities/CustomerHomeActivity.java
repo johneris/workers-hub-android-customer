@@ -77,7 +77,7 @@ public class CustomerHomeActivity extends BaseActivity {
 
     @OnClick(R.id.fabCreateRequest)
     public void createRequest() {
-
+        startActivity(CreateRequestActivity.newIntent(mContext));
     }
 
 
