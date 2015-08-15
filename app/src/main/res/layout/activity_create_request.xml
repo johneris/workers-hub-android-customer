@@ -89,9 +89,9 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-                <include layout="@layout/layout_tags"/>
+                <include layout="@layout/layout_tag"/>
 
-                <include layout="@layout/layout_tags"/>
+                <include layout="@layout/layout_tag"/>
 
                 <TextView
                     style="@style/Button.Flat.Primary"

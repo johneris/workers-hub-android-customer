@@ -15,8 +15,8 @@ public class RestClient {
         LIVE, DEV
     }
 
-    private static final String BASE_URL_LIVE = "https://api.github.com";
-    private static final String BASE_URL_DEV = "https://api.github.com";
+    private static final String BASE_URL_LIVE = "http://workers-hub.herokuapp.com";
+    private static final String BASE_URL_DEV = "http://workers-hub.herokuapp.com";
     private static BaseUrlMode baseUrlMode;
 
     private static ApiService apiService;
@@ -36,7 +36,6 @@ public class RestClient {
 
         Gson gson = new GsonBuilder()
                 .setDateFormat("yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'SSS'Z'")
-                .excludeFieldsWithoutExposeAnnotation()
                 .create();
 
         RestAdapter restAdapter = new RestAdapter.Builder()

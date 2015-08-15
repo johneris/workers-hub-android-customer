@@ -18,6 +18,7 @@
             android:text="Tag Name"/>
 
         <TextView
+            android:id="@+id/tvBorder"
             android:layout_width="1dp"
             android:layout_height="match_parent"
             android:background="@color/border"/>

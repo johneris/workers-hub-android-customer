@@ -1,6 +1,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="ph.coreproc.android.devcup">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:name="ph.coreproc.android.devcup.App"
         android:allowBackup="true"
@@ -38,6 +40,11 @@
         <activity
             android:name="ph.coreproc.android.devcup.activities.LoginActivity"
             android:label="@string/activity_title_login"
+            android:screenOrientation="portrait"/>
+
+        <activity
+            android:name="ph.coreproc.android.devcup.activities.CustomerHomeActivity"
+            android:label="@string/activity_title_customer_home"
             android:screenOrientation="portrait"/>
 
     </application>

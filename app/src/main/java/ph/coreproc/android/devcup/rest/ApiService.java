@@ -3,8 +3,12 @@ package ph.coreproc.android.devcup.rest;
 import java.util.List;
 
 import ph.coreproc.android.devcup.models.Contributor;
+import ph.coreproc.android.devcup.rest.models.LoginRequest;
+import ph.coreproc.android.devcup.rest.models.LoginResponse;
 import retrofit.Callback;
+import retrofit.http.Body;
 import retrofit.http.GET;
+import retrofit.http.POST;
 import retrofit.http.Path;
 
 /**
@@ -36,5 +40,8 @@ public interface ApiService {
             @Path("repository") String repository,
             Callback<List<Contributor>> callback
     );
+
+    @POST("/api/v1/login")
+    void login(@Body LoginRequest loginRequest, Callback<LoginResponse> callback);
 
 }

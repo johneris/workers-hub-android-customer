@@ -28,7 +28,6 @@ public class ModelUtil {
     static {
         gson = new GsonBuilder()
                 .setDateFormat("yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'SSS'Z'")
-                .excludeFieldsWithoutExposeAnnotation()     // don't include fields without @Expose
                 .create();
     }
 

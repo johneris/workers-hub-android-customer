@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/spacing_medium">
+                android:layout_marginBottom="@dimen/spacing_medium">
 
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
@@ -56,9 +56,9 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
-                    <include layout="@layout/layout_tags"/>
+                    <include layout="@layout/layout_tag"/>
 
-                    <include layout="@layout/layout_tags"/>
+                    <include layout="@layout/layout_tag"/>
 
                 </LinearLayout>
 

@@ -18,7 +18,6 @@
             android:layout_height="96dp"
             android:scaleType="centerCrop"
             android:src="@drawable/ic_launcher"
-            android:weight="100"
             app:sriv_left_top_corner_radius="4dip"
             app:sriv_oval="true"
             app:sriv_right_top_corner_radius="4dip"/>
