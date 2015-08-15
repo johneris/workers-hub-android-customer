@@ -4,13 +4,36 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.LinearLayout;
 
+import butterknife.InjectView;
 import ph.coreproc.android.devcup.R;
 
 /**
  * Created by johneris on 8/15/15.
  */
 public class CreateRequestActivity extends BaseActivity {
+
+    @InjectView(R.id.etSubject)
+    EditText mEtSubject;
+
+    @InjectView(R.id.etMinimumOffer)
+    EditText mEtMinimumOffer;
+
+    @InjectView(R.id.etMaximumOffer)
+    EditText mEtMaximumOffer;
+
+    @InjectView(R.id.etDescription)
+    EditText mEtDescription;
+
+    @InjectView(R.id.tagsContainer)
+    LinearLayout mTagsContainer;
+
+    @InjectView(R.id.imagesContainer)
+    LinearLayout mImagesContainer;
+
+
 
     @Override
     protected int getLayoutResourceId() {
