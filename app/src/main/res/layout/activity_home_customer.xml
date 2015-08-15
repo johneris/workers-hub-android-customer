@@ -26,7 +26,6 @@
         android:id="@+id/fabCreateRequest"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/spacing_medium"
         android:src="@drawable/ic_add_white_24dp"
         app:layout_anchor="@id/coordinatorLayout"
         app:layout_anchorGravity="bottom|right|end"/>

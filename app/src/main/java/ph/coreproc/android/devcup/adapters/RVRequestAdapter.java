@@ -14,6 +14,8 @@ import butterknife.ButterKnife;
 import butterknife.InjectView;
 import ph.coreproc.android.devcup.R;
 import ph.coreproc.android.devcup.models.Request;
+import ph.coreproc.android.devcup.models.UserType;
+import ph.coreproc.android.devcup.rest.Session;
 import ph.coreproc.android.devcup.utils.FormatUtil;
 
 /**
@@ -61,13 +63,17 @@ public class RVRequestAdapter extends RecyclerView.Adapter<RVRequestAdapter.Requ
             holder.mTagsContainer.addView(tagView);
         }
 
-        holder.mTvSeeMore.setOnClickListener(new View.OnClickListener() {
+        holder.mTvMore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
             }
         });
 
+        holder.mTvPropose.setVisibility(
+                Session.getInstance().getUserType() == UserType.WORKER ?
+                        View.VISIBLE : View.GONE
+        );
         holder.mTvPropose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -75,6 +81,10 @@ public class RVRequestAdapter extends RecyclerView.Adapter<RVRequestAdapter.Requ
             }
         });
 
+        holder.mTvReview.setVisibility(
+                Session.getInstance().getUserType() == UserType.CUSTOMER ?
+                        View.VISIBLE : View.GONE
+        );
         holder.mTvReview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -82,6 +92,10 @@ public class RVRequestAdapter extends RecyclerView.Adapter<RVRequestAdapter.Requ
             }
         });
 
+        holder.mTvProposals.setVisibility(
+                Session.getInstance().getUserType() == UserType.CUSTOMER ?
+                        View.VISIBLE : View.GONE
+        );
         holder.mTvProposals.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -124,7 +138,7 @@ public class RVRequestAdapter extends RecyclerView.Adapter<RVRequestAdapter.Requ
         LinearLayout mImagesContainer;
 
         @InjectView(R.id.tvMore)
-        TextView mTvSeeMore;
+        TextView mTvMore;
 
         @InjectView(R.id.tvPropose)
         TextView mTvPropose;

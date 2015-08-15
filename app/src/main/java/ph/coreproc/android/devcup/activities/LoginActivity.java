@@ -53,7 +53,7 @@ public class LoginActivity extends BaseActivity {
     public void login() {
         final String username = mEtUsername.getText().toString();
         String password = mEtPassword.getText().toString();
-        final String type = mRbtnCustomer.isSelected() ?
+        final String type = mRbtnCustomer.isChecked() ?
                 UserType.CUSTOMER.toString() : UserType.WORKER.toString();
 
         final LoginRequest loginRequest = new LoginRequest(username, password, type);
@@ -68,8 +68,8 @@ public class LoginActivity extends BaseActivity {
             public void success(LoginResponse loginResponse, Response response) {
                 Log.i(TAG, "LoginResponse = " + ModelUtil.toJsonString(loginResponse));
 
-                Session.getInstance().setUserID(loginResponse.userID);
-                Session.getInstance().setApiKey(loginResponse.userID);
+                Session.getInstance().setUserID(loginResponse.message);
+                Session.getInstance().setApiKey(loginResponse.message);
                 Session.getInstance().setUserType(
                         UserType.CUSTOMER.toString().equals(type) ?
                                 UserType.CUSTOMER : UserType.WORKER
@@ -82,7 +82,12 @@ public class LoginActivity extends BaseActivity {
 
             @Override
             public void failure(RetrofitError error) {
-                UiUtil.showMessageDialog(getSupportFragmentManager(), error.getMessage());
+                try {
+                    LoginResponse loginResponse = (LoginResponse) error.getBodyAs(LoginResponse.class);
+                    UiUtil.showMessageDialog(getSupportFragmentManager(), loginResponse.message);
+                } catch (Exception e) {
+                    UiUtil.showMessageDialog(getSupportFragmentManager(), error.getMessage());
+                }
                 progressDialog.dismiss();
             }
         });
