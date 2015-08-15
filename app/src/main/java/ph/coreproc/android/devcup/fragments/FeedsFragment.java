@@ -21,8 +21,7 @@ import ph.coreproc.android.devcup.adapters.RVRequestAdapter;
 import ph.coreproc.android.devcup.models.Request;
 import ph.coreproc.android.devcup.rest.RestClient;
 import ph.coreproc.android.devcup.rest.Session;
-import ph.coreproc.android.devcup.rest.models.LoginResponse;
-import ph.coreproc.android.devcup.rest.models.RequestResponsePost;
+import ph.coreproc.android.devcup.rest.models.WorkerFeedResponse;
 import ph.coreproc.android.devcup.utils.ModelUtil;
 import ph.coreproc.android.devcup.utils.UiUtil;
 import retrofit.Callback;
@@ -52,13 +51,15 @@ public class FeedsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_feeds, container, false);
-
         ButterKnife.inject(this, view);
-        initialize();
-
-        mContext = getActivity();
-
         return view;
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        mContext = getActivity();
+        initialize();
     }
 
     private void initialize() {
@@ -70,31 +71,28 @@ public class FeedsFragment extends Fragment {
         mRvRequestAdapter = new RVRequestAdapter(mContext, mRequests);
         mRvRequests.setAdapter(mRvRequestAdapter);
 
-//        getRequests();
+        getFeeds();
     }
 
-    private void getRequests() {
+    private void getFeeds() {
 
         final ProgressDialog progressDialog = UiUtil.getProgressDialog(mContext, "Please wait...");
         progressDialog.show();
 
-        RestClient.getAPIService().getRequests(
+        RestClient.getAPIService().getWorkerFeed(
                 Session.getInstance().getApiKey(),
-                new Callback<RequestResponsePost>() {
+                new Callback<WorkerFeedResponse>() {
                     @Override
-                    public void success(RequestResponsePost requestResponsePost, Response response) {
-                        Log.i(TAG, "RequestRequest = " + ModelUtil.toJsonString(requestResponsePost));
-                        mRequests = requestResponsePost.requests;
+                    public void success(WorkerFeedResponse workerFeedResponse, Response response) {
+                        Log.i(TAG, "WorkerFeedResponse = " + ModelUtil.toJsonString(workerFeedResponse));
+                        mRequests = workerFeedResponse.requests;
                         mRvRequestAdapter.changeData(mRequests);
                         progressDialog.dismiss();
                     }
 
                     @Override
                     public void failure(RetrofitError error) {
-                        try {
-                            LoginResponse loginResponse = (LoginResponse) error.getBodyAs(LoginResponse.class);
-                        } catch (Exception e) {
-                        }
+                        Log.e(TAG, "WorkerFeedResponse: " + error.getMessage());
                         progressDialog.dismiss();
                     }
                 }

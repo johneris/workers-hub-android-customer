@@ -57,6 +57,11 @@
             android:label="@string/activity_title_worker_home"
             android:screenOrientation="portrait"/>
 
+        <activity
+            android:name="ph.coreproc.android.devcup.activities.CreateProposalActivity"
+            android:label="Create Proposal"
+            android:screenOrientation="portrait"/>
+
     </application>
 
 </manifest>

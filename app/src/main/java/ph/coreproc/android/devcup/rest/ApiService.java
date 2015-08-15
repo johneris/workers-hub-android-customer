@@ -6,8 +6,10 @@ import ph.coreproc.android.devcup.models.Contributor;
 import ph.coreproc.android.devcup.models.Request;
 import ph.coreproc.android.devcup.rest.models.LoginRequest;
 import ph.coreproc.android.devcup.rest.models.LoginResponse;
-import ph.coreproc.android.devcup.rest.models.RequestResponsePost;
+import ph.coreproc.android.devcup.rest.models.ProfessionResponse;
 import ph.coreproc.android.devcup.rest.models.RequestResponseGet;
+import ph.coreproc.android.devcup.rest.models.RequestResponsePost;
+import ph.coreproc.android.devcup.rest.models.WorkerFeedResponse;
 import retrofit.Callback;
 import retrofit.http.Body;
 import retrofit.http.GET;
@@ -52,13 +54,27 @@ public interface ApiService {
     void createRequest(
             @Header("X-Authorization") String authorization,
             @Body Request request,
-            Callback<RequestResponseGet> callback
+            Callback<RequestResponsePost> callback
     );
 
     @GET("/api/v1/requests")
     void getRequests(
             @Header("X-Authorization") String authorization,
-            Callback<RequestResponsePost> callback
+            Callback<RequestResponseGet> callback
     );
+
+    @GET("/api/v1/professions")
+    void getProfessions(
+            Callback<ProfessionResponse> callback
+    );
+
+    @GET("/api/v1/worker/requests")
+    void getWorkerFeed(
+            @Header("X-Authorization") String authorization,
+            Callback<WorkerFeedResponse> callback
+    );
+
+    @POST("/api/v1/")
+
 
 }

@@ -21,7 +21,7 @@ import ph.coreproc.android.devcup.models.Request;
 import ph.coreproc.android.devcup.rest.RestClient;
 import ph.coreproc.android.devcup.rest.Session;
 import ph.coreproc.android.devcup.rest.models.LoginResponse;
-import ph.coreproc.android.devcup.rest.models.RequestResponsePost;
+import ph.coreproc.android.devcup.rest.models.RequestResponseGet;
 import ph.coreproc.android.devcup.utils.ModelUtil;
 import ph.coreproc.android.devcup.utils.UiUtil;
 import retrofit.Callback;
@@ -114,11 +114,11 @@ public class CustomerHomeActivity extends BaseActivity {
 
         RestClient.getAPIService().getRequests(
                 Session.getInstance().getApiKey(),
-                new Callback<RequestResponsePost>() {
+                new Callback<RequestResponseGet>() {
                     @Override
-                    public void success(RequestResponsePost requestResponsePost, Response response) {
-                        Log.i(TAG, "RequestRequest = " + ModelUtil.toJsonString(requestResponsePost));
-                        mRequests = requestResponsePost.requests;
+                    public void success(RequestResponseGet requestResponseGet, Response response) {
+                        Log.i(TAG, "RequestRequest = " + ModelUtil.toJsonString(requestResponseGet));
+                        mRequests = requestResponseGet.requests;
                         mRvRequestAdapter.changeData(mRequests);
                         progressDialog.dismiss();
                     }

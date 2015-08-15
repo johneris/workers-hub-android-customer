@@ -2,6 +2,10 @@ package ph.coreproc.android.devcup.rest.models;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.List;
+
+import ph.coreproc.android.devcup.models.Request;
+
 /**
  * Created by johneris on 8/16/15.
  */
@@ -11,6 +15,6 @@ public class RequestResponseGet {
     public String status;
 
     @SerializedName("message")
-    public String message;
+    public List<Request> requests;
 
 }

@@ -26,13 +26,12 @@ import java.util.List;
 import butterknife.InjectView;
 import butterknife.OnClick;
 import ph.coreproc.android.devcup.R;
-import ph.coreproc.android.devcup.models.Profession;
 import ph.coreproc.android.devcup.models.Request;
 import ph.coreproc.android.devcup.rest.RestClient;
 import ph.coreproc.android.devcup.rest.Session;
 import ph.coreproc.android.devcup.rest.models.LoginResponse;
-import ph.coreproc.android.devcup.rest.models.RequestResponseGet;
-import ph.coreproc.android.devcup.utils.DummyDataUtil;
+import ph.coreproc.android.devcup.rest.models.ProfessionResponse;
+import ph.coreproc.android.devcup.rest.models.RequestResponsePost;
 import ph.coreproc.android.devcup.utils.ModelUtil;
 import ph.coreproc.android.devcup.utils.UiUtil;
 import retrofit.Callback;
@@ -72,6 +71,7 @@ public class CreateRequestActivity extends BaseActivity {
 
     Request mRequest;
 
+    List<String> tags;
     List<Bitmap> mBitmaps;
 
 
@@ -100,10 +100,14 @@ public class CreateRequestActivity extends BaseActivity {
             }
         });
 
+        tags = new ArrayList<>();
+
         mRequest = new Request();
         mRequest.tags = new ArrayList<>();
 
         mBitmaps = new ArrayList<>();
+
+        getTags();
     }
 
     @OnClick(R.id.tvAddTag)
@@ -116,8 +120,8 @@ public class CreateRequestActivity extends BaseActivity {
                 mContext,
                 android.R.layout.select_dialog_item);
 
-        for (Profession profession : DummyDataUtil.getProfessions()) {
-            arrayAdapter.add(profession.name);
+        for (String tag : tags) {
+            arrayAdapter.add(tag);
         }
 
         builderSingle.setNegativeButton("cancel",
@@ -220,6 +224,29 @@ public class CreateRequestActivity extends BaseActivity {
     }
 
 
+    public void getTags() {
+
+        final ProgressDialog progressDialog = UiUtil.getProgressDialog(mContext, "Please wait...");
+        progressDialog.show();
+
+        RestClient.getAPIService().getProfessions(new Callback<ProfessionResponse>() {
+            @Override
+            public void success(ProfessionResponse professionResponse, Response response) {
+                tags = professionResponse.tags;
+                progressDialog.dismiss();
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                UiUtil.showMessageDialog(getSupportFragmentManager(), error.getMessage());
+                progressDialog.dismiss();
+            }
+        });
+
+
+    }
+
+
     @OnClick(R.id.btnSubmit)
     public void submitRequest() {
         mRequest.subject = mEtSubject.getText().toString();
@@ -233,10 +260,10 @@ public class CreateRequestActivity extends BaseActivity {
         RestClient.getAPIService().createRequest(
                 Session.getInstance().getApiKey(),
                 mRequest,
-                new Callback<RequestResponseGet>() {
+                new Callback<RequestResponsePost>() {
                     @Override
-                    public void success(RequestResponseGet requestResponseGet, Response response) {
-                        Log.i(TAG, "RequestResponse = " + ModelUtil.toJsonString(requestResponseGet));
+                    public void success(RequestResponsePost requestResponsePost, Response response) {
+                        Log.i(TAG, "RequestResponse = " + ModelUtil.toJsonString(requestResponsePost));
                         Intent intent = new Intent(mContext, CustomerHomeActivity.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(intent);

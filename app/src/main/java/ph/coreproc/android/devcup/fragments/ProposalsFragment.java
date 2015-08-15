@@ -1,6 +1,5 @@
 package ph.coreproc.android.devcup.fragments;
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -18,7 +17,6 @@ import butterknife.InjectView;
 import ph.coreproc.android.devcup.R;
 import ph.coreproc.android.devcup.adapters.RVProposalsAdapter;
 import ph.coreproc.android.devcup.models.Proposal;
-import ph.coreproc.android.devcup.utils.UiUtil;
 
 /**
  * Created by johneris on 8/16/15.
@@ -43,13 +41,15 @@ public class ProposalsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_proposals, container, false);
-
         ButterKnife.inject(this, view);
-        initialize();
-
-        mContext = getActivity();
-
         return view;
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        mContext = getActivity();
+        initialize();
     }
 
     private void initialize() {
@@ -66,9 +66,9 @@ public class ProposalsFragment extends Fragment {
 
     private void getProposals() {
 
-        final ProgressDialog progressDialog = UiUtil.getProgressDialog(mContext, "Please wait...");
-        progressDialog.show();
-
+//        final ProgressDialog progressDialog = UiUtil.getProgressDialog(mContext, "Please wait...");
+//        progressDialog.show();
+//
 //        RestClient.getAPIService().getRequests(
 //                Session.getInstance().getApiKey(),
 //                new Callback<RequestResponsePost>() {
