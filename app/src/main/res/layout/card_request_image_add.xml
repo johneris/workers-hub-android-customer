@@ -16,9 +16,8 @@
             style="@style/Button.Flat.Primary"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:textSize="32dp"
             android:gravity="center"
-            android:text="+"/>
+            android:text="Add"/>
 
     </LinearLayout>
 
