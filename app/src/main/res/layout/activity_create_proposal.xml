@@ -39,7 +39,7 @@
 
         <Button
             android:id="@+id/btnSubmit"
-            style="@style/Button.Primary"
+            style="@style/Button.Raised.Primary"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="right"

@@ -62,4 +62,6 @@ dependencies {
     compile 'com.koushikdutta.ion:ion:2.+'
     // Picasso - image downloading and caching library for Android
     compile 'com.squareup.picasso:picasso:2.5.2'
+    // Rounded image view
+    compile 'com.joooonho:selectableroundedimageview:1.0.1'
 }

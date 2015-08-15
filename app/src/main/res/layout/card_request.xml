@@ -42,7 +42,7 @@
                 android:gravity="center_vertical">
 
                 <TextView
-                    style="@style/Text.Body1"
+                    style="@style/Text.Label"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="@dimen/spacing_small"
@@ -80,7 +80,7 @@
 
                 <TextView
                     android:id="@+id/tvSeeMore"
-                    style="@style/Button.Flat"
+                    style="@style/Button.Flat.Primary"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="@dimen/spacing_small"
@@ -88,7 +88,7 @@
 
                 <TextView
                     android:id="@+id/tvPropose"
-                    style="@style/Button.Flat"
+                    style="@style/Button.Flat.Primary"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="@dimen/spacing_small"
@@ -97,7 +97,7 @@
 
                 <TextView
                     android:id="@+id/tvReview"
-                    style="@style/Button.Flat"
+                    style="@style/Button.Flat.Primary"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="@dimen/spacing_small"
@@ -105,7 +105,7 @@
 
                 <TextView
                     android:id="@+id/tvProposals"
-                    style="@style/Button.Flat"
+                    style="@style/Button.Flat.Primary"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="@dimen/spacing_small"

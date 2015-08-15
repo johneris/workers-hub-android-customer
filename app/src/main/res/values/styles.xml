@@ -1,18 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="Button.Primary" parent="android:Widget.Button">
+    <style name="Button.Raised.Primary" parent="android:Widget.Button">
         <item name="android:background">@drawable/button_primary</item>
         <item name="android:textColor">@color/button_primary_text</item>
     </style>
 
-    <style name="Button.Danger" parent="android:Widget.Button">
+    <style name="Button.Raised.Danger" parent="android:Widget.Button">
         <item name="android:background">@drawable/button_danger</item>
         <item name="android:textColor">@color/button_danger_text</item>
     </style>
 
-    <style name="Button.Flat" parent="TextAppearance.AppCompat.Button">
+    <style name="Button.Flat.Primary" parent="TextAppearance.AppCompat.Button">
         <item name="android:textColor">@color/accent</item>
+        <item name="android:textAllCaps">true</item>
+    </style>
+
+    <style name="Button.Flat.Danger" parent="TextAppearance.AppCompat.Button">
+        <item name="android:textColor">@color/button_danger_background_pressed</item>
         <item name="android:textAllCaps">true</item>
     </style>
 
@@ -22,7 +27,7 @@
     <style name="Text.Subhead" parent="TextAppearance.AppCompat.Subhead">
     </style>
 
-    <style name="Text.Body1" parent="Base.TextAppearance.AppCompat.Body1">
+    <style name="Text.Label" parent="Base.TextAppearance.AppCompat.Body1">
     </style>
 
 </resources>
