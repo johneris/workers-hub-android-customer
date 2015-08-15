@@ -13,6 +13,8 @@ import java.util.List;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import ph.coreproc.android.devcup.R;
+import ph.coreproc.android.devcup.activities.CreateProposalActivity;
+import ph.coreproc.android.devcup.activities.ProposalListActivity;
 import ph.coreproc.android.devcup.models.Request;
 import ph.coreproc.android.devcup.models.UserType;
 import ph.coreproc.android.devcup.rest.Session;
@@ -77,7 +79,7 @@ public class RVRequestAdapter extends RecyclerView.Adapter<RVRequestAdapter.Requ
         holder.mTvPropose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                mContext.startActivity(CreateProposalActivity.newIntent(mContext));
             }
         });
 
@@ -99,7 +101,7 @@ public class RVRequestAdapter extends RecyclerView.Adapter<RVRequestAdapter.Requ
         holder.mTvProposals.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                mContext.startActivity(ProposalListActivity.newIntent(mContext));
             }
         });
 
