@@ -15,6 +15,7 @@ import butterknife.OnClick;
 import ph.coreproc.android.devcup.R;
 import ph.coreproc.android.devcup.adapters.RVRequestAdapter;
 import ph.coreproc.android.devcup.models.Request;
+import ph.coreproc.android.devcup.rest.Session;
 import ph.coreproc.android.devcup.utils.DummyDataUtil;
 
 /**
@@ -86,7 +87,8 @@ public class CustomerHomeActivity extends BaseActivity {
     }
 
     private void actionLogout() {
-
+        Session.resetSession();
+        finish();
     }
 
 }

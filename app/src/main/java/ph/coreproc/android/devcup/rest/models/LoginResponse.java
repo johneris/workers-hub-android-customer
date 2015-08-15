@@ -11,6 +11,6 @@ public class LoginResponse {
     public String status;
 
     @SerializedName("message")
-    public String message;
+    public String userID;
 
 }

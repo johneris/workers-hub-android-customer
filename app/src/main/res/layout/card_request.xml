@@ -79,12 +79,12 @@
                 android:layout_marginTop="@dimen/spacing_medium">
 
                 <TextView
-                    android:id="@+id/tvSeeMore"
+                    android:id="@+id/tvMore"
                     style="@style/Button.Flat.Primary"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="@dimen/spacing_small"
-                    android:text="See More"/>
+                    android:text="More"/>
 
                 <TextView
                     android:id="@+id/tvPropose"

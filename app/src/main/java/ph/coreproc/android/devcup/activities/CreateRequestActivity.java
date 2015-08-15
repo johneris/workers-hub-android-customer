@@ -51,11 +51,8 @@ public class CreateRequestActivity extends BaseActivity {
     @InjectView(R.id.tagsContainer)
     FlowLayout mTagsContainer;
 
-    @InjectView(R.id.cardAddImage)
-    CardView mCardAddImage;
-
-    @InjectView(R.id.tvAddImage)
-    TextView mTvAddImage;
+    @InjectView(R.id.rootViewAddImage)
+    View mRootViewAddImage;
 
     @InjectView(R.id.imagesContainer)
     FlowLayout mImagesContainer;
@@ -168,38 +165,45 @@ public class CreateRequestActivity extends BaseActivity {
         if (requestCode == 1) {
             try {
                 Bitmap photo = (Bitmap) data.getExtras().get("data");
-
                 try {
                     FileOutputStream out = new FileOutputStream("filename");
                     photo.compress(Bitmap.CompressFormat.JPEG, 90, out);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-
-                View cardImage = LayoutInflater.from(mContext)
-                        .inflate(R.layout.card_request_image, null, false);
-
-                SelectableRoundedImageView ivImage = (SelectableRoundedImageView)
-                        cardImage.findViewById(R.id.ivImage);
-                TextView tvRemove = (TextView) cardImage.findViewById(R.id.tvRemove);
-
-                final int bitmapIndex = mImagesContainer.getChildCount() - 1;
-
-                ivImage.setImageBitmap(photo);
-                tvRemove.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        mBitmaps.remove(bitmapIndex);
-                        mImagesContainer.removeViewAt(bitmapIndex);
-                    }
-                });
-
                 mBitmaps.add(photo);
-                mImagesContainer.addView(cardImage, bitmapIndex);
+                refreshImageList();
             } catch (Exception e) {
                 // no image captured
             }
         }
+    }
+
+    private void refreshImageList() {
+        mImagesContainer.removeAllViews();
+        for (final Bitmap bitmap : mBitmaps) {
+            View cardImage = LayoutInflater.from(mContext)
+                    .inflate(R.layout.card_request_image, null, false);
+
+            CardView card = (CardView) cardImage.findViewById(R.id.card);
+            SelectableRoundedImageView ivImage = (SelectableRoundedImageView)
+                    cardImage.findViewById(R.id.ivImage);
+            TextView tvRemove = (TextView) cardImage.findViewById(R.id.tvRemove);
+
+            card.setPreventCornerOverlap(false);
+
+            ivImage.setImageBitmap(bitmap);
+            tvRemove.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mBitmaps.remove(bitmap);
+                    refreshImageList();
+                }
+            });
+
+            mImagesContainer.addView(cardImage);
+        }
+        mImagesContainer.addView(mRootViewAddImage);
     }
 
 

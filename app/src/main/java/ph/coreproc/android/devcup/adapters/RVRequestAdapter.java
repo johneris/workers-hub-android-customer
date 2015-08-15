@@ -123,7 +123,7 @@ public class RVRequestAdapter extends RecyclerView.Adapter<RVRequestAdapter.Requ
         @InjectView(R.id.imagesContainer)
         LinearLayout mImagesContainer;
 
-        @InjectView(R.id.tvSeeMore)
+        @InjectView(R.id.tvMore)
         TextView mTvSeeMore;
 
         @InjectView(R.id.tvPropose)
