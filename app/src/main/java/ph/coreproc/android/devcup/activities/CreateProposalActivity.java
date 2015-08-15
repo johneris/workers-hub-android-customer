@@ -11,7 +11,7 @@ import ph.coreproc.android.devcup.R;
 /**
  * Created by johneris on 8/16/15.
  */
-public class ProposalActivity extends BaseActivity {
+public class CreateProposalActivity extends BaseActivity {
 
 
     @InjectView(R.id.etCost)

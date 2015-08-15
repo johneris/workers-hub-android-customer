@@ -40,6 +40,14 @@ public class RVProposalsAdapter extends RecyclerView.Adapter<RVProposalsAdapter.
 
         holder.mTvRange.setText(proposal.range);
         holder.mTvDescription.setText(proposal.message);
+
+        holder.mTvAccept.setVisibility(View.VISIBLE);
+        holder.mTvAccept.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
     }
 
     @Override
@@ -64,6 +72,9 @@ public class RVProposalsAdapter extends RecyclerView.Adapter<RVProposalsAdapter.
 
         @InjectView(R.id.tvDescription)
         TextView mTvDescription;
+
+        @InjectView(R.id.tvAccept)
+        TextView mTvAccept;
 
         ProposalViewHolder(View itemView) {
             super(itemView);
