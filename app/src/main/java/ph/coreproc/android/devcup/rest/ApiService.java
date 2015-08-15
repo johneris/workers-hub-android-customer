@@ -3,11 +3,15 @@ package ph.coreproc.android.devcup.rest;
 import java.util.List;
 
 import ph.coreproc.android.devcup.models.Contributor;
+import ph.coreproc.android.devcup.models.Request;
 import ph.coreproc.android.devcup.rest.models.LoginRequest;
 import ph.coreproc.android.devcup.rest.models.LoginResponse;
+import ph.coreproc.android.devcup.rest.models.RequestResponsePost;
+import ph.coreproc.android.devcup.rest.models.RequestResponseGet;
 import retrofit.Callback;
 import retrofit.http.Body;
 import retrofit.http.GET;
+import retrofit.http.Header;
 import retrofit.http.POST;
 import retrofit.http.Path;
 
@@ -43,5 +47,18 @@ public interface ApiService {
 
     @POST("/api/v1/login")
     void login(@Body LoginRequest loginRequest, Callback<LoginResponse> callback);
+
+    @POST("/api/v1/requests")
+    void createRequest(
+            @Header("X-Authorization") String authorization,
+            @Body Request request,
+            Callback<RequestResponseGet> callback
+    );
+
+    @GET("/api/v1/requests")
+    void getRequests(
+            @Header("X-Authorization") String authorization,
+            Callback<RequestResponsePost> callback
+    );
 
 }

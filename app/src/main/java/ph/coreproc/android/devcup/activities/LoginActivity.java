@@ -42,6 +42,9 @@ public class LoginActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        mEtUsername.setText("test_worker_1");
+        mEtPassword.setText("w1");
     }
 
     @Override
@@ -77,7 +80,11 @@ public class LoginActivity extends BaseActivity {
 
                 progressDialog.dismiss();
 
-                startActivity(CustomerHomeActivity.newIntent(mContext));
+                if(Session.getInstance().getUserType() == UserType.CUSTOMER) {
+                    startActivity(CustomerHomeActivity.newIntent(mContext));
+                } else {
+                    startActivity(WorkerHomeActivity.newIntent(mContext));
+                }
             }
 
             @Override

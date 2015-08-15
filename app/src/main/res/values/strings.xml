@@ -5,6 +5,7 @@
     <string name="activity_title_login">Login Activity</string>
     <string name="activity_title_customer_home">My Requests</string>
     <string name="activity_title_create_request">Create Request</string>
+    <string name="activity_title_worker_home">Worker Home</string>
 
     <string name="dialog_action_ok">OK</string>
     <string name="dialog_action_cancel">CANCEL</string>

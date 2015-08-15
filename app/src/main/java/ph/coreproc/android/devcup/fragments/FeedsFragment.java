@@ -1,20 +1,21 @@
-package ph.coreproc.android.devcup.activities;
+package ph.coreproc.android.devcup.fragments;
 
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.ButterKnife;
 import butterknife.InjectView;
-import butterknife.OnClick;
 import ph.coreproc.android.devcup.R;
 import ph.coreproc.android.devcup.adapters.RVRequestAdapter;
 import ph.coreproc.android.devcup.models.Request;
@@ -29,11 +30,13 @@ import retrofit.RetrofitError;
 import retrofit.client.Response;
 
 /**
- * Created by johneris on 8/15/15.
+ * Created by johneris on 8/16/15.
  */
-public class CustomerHomeActivity extends BaseActivity {
+public class FeedsFragment extends Fragment {
 
-    public static final String TAG = "CustomerHomeActivity";
+    public static final String TAG = "FeedsFragment";
+
+    public Context mContext;
 
     @InjectView(R.id.rvRequests)
     RecyclerView mRvRequests;
@@ -41,70 +44,33 @@ public class CustomerHomeActivity extends BaseActivity {
     List<Request> mRequests;
     RVRequestAdapter mRvRequestAdapter;
 
-
-    @Override
-    protected int getLayoutResourceId() {
-        return R.layout.activity_home_customer;
-    }
-
-    public static Intent newIntent(Context context) {
-        Intent intent = new Intent(context, CustomerHomeActivity.class);
-        return intent;
+    public static FeedsFragment newInstance() {
+        FeedsFragment feedsFragment = new FeedsFragment();
+        return feedsFragment;
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_feeds, container, false);
+
+        ButterKnife.inject(this, view);
         initialize();
+
+        mContext = getActivity();
+
+        return view;
     }
 
     private void initialize() {
         LinearLayoutManager llm = new LinearLayoutManager(mContext);
 
-//        mRequests = DummyDataUtil.getRequests();
         mRequests = new ArrayList<>();
         mRvRequests.setLayoutManager(llm);
 
         mRvRequestAdapter = new RVRequestAdapter(mContext, mRequests);
         mRvRequests.setAdapter(mRvRequestAdapter);
 
-        getRequests();
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_customer_home, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-
-        switch (item.getItemId()) {
-            case R.id.reviewsMenuItem:
-                actionReviewsMenuItem();
-                return true;
-            case R.id.logoutMenuItem:
-                actionLogout();
-                return true;
-        }
-
-        return false;
-    }
-
-    @OnClick(R.id.fabCreateRequest)
-    public void createRequest() {
-        startActivity(CreateRequestActivity.newIntent(mContext));
-    }
-
-
-    private void actionReviewsMenuItem() {
-
-    }
-
-    private void actionLogout() {
-        Session.resetSession();
-        finish();
+//        getRequests();
     }
 
     private void getRequests() {
@@ -127,9 +93,7 @@ public class CustomerHomeActivity extends BaseActivity {
                     public void failure(RetrofitError error) {
                         try {
                             LoginResponse loginResponse = (LoginResponse) error.getBodyAs(LoginResponse.class);
-                            UiUtil.showMessageDialog(getSupportFragmentManager(), loginResponse.message);
                         } catch (Exception e) {
-                            UiUtil.showMessageDialog(getSupportFragmentManager(), error.getMessage());
                         }
                         progressDialog.dismiss();
                     }
@@ -137,5 +101,6 @@ public class CustomerHomeActivity extends BaseActivity {
         );
 
     }
+
 
 }

@@ -13,6 +13,8 @@
     <color name="divider">#B6B6B6</color>
     <color name="text_icon">#FFFFFF</color>
 
+    <color name="tab_title">@android:color/white</color>
+
     <color name="button_primary_background">@color/primary</color>
     <color name="button_primary_background_pressed">@color/primary_dark</color>
     <color name="button_primary_background_focused">@color/primary_dark</color>

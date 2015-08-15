@@ -1,5 +1,6 @@
 package ph.coreproc.android.devcup.activities;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -7,6 +8,7 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.CardView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -26,12 +28,23 @@ import butterknife.OnClick;
 import ph.coreproc.android.devcup.R;
 import ph.coreproc.android.devcup.models.Profession;
 import ph.coreproc.android.devcup.models.Request;
+import ph.coreproc.android.devcup.rest.RestClient;
+import ph.coreproc.android.devcup.rest.Session;
+import ph.coreproc.android.devcup.rest.models.LoginResponse;
+import ph.coreproc.android.devcup.rest.models.RequestResponseGet;
 import ph.coreproc.android.devcup.utils.DummyDataUtil;
+import ph.coreproc.android.devcup.utils.ModelUtil;
+import ph.coreproc.android.devcup.utils.UiUtil;
+import retrofit.Callback;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
 
 /**
  * Created by johneris on 8/15/15.
  */
 public class CreateRequestActivity extends BaseActivity {
+
+    public static final String TAG = "CreateRequestActivity";
 
     @InjectView(R.id.etSubject)
     EditText mEtSubject;
@@ -214,7 +227,34 @@ public class CreateRequestActivity extends BaseActivity {
         mRequest.rangeMax = Double.parseDouble(mEtMaximumOffer.getText().toString());
         mRequest.description = mEtDescription.getText().toString();
 
-        // do http here
+        final ProgressDialog progressDialog = UiUtil.getProgressDialog(mContext, "Please wait...");
+        progressDialog.show();
+
+        RestClient.getAPIService().createRequest(
+                Session.getInstance().getApiKey(),
+                mRequest,
+                new Callback<RequestResponseGet>() {
+                    @Override
+                    public void success(RequestResponseGet requestResponseGet, Response response) {
+                        Log.i(TAG, "RequestResponse = " + ModelUtil.toJsonString(requestResponseGet));
+                        Intent intent = new Intent(mContext, CustomerHomeActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivity(intent);
+                        CreateRequestActivity.this.finish();
+                    }
+
+                    @Override
+                    public void failure(RetrofitError error) {
+                        try {
+                            LoginResponse loginResponse = (LoginResponse) error.getBodyAs(LoginResponse.class);
+                            UiUtil.showMessageDialog(getSupportFragmentManager(), loginResponse.message);
+                        } catch (Exception e) {
+                            UiUtil.showMessageDialog(getSupportFragmentManager(), error.getMessage());
+                        }
+                        progressDialog.dismiss();
+                    }
+                }
+        );
     }
 
 }

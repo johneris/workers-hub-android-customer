@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/reviewsMenuItem"
+        android:icon="@drawable/ic_rate_review_white_24dp"
+        android:title="Reviews"
+        app:showAsAction="always"/>
+
+    <item
+        android:id="@+id/logoutMenuItem"
+        android:title="Logout"
+        app:showAsAction="never"/>
+
+</menu>
