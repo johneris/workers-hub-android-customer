@@ -99,7 +99,7 @@ public class CustomerHomeActivity extends BaseActivity {
 
 
     private void actionReviewsMenuItem() {
-
+        startActivity(MyReviewsActivity.newIntent(mContext));
     }
 
     private void actionLogout() {

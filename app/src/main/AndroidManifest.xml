@@ -59,23 +59,28 @@
 
         <activity
             android:name="ph.coreproc.android.devcup.activities.CreateProposalActivity"
-            android:label="Create Proposal"
+            android:label="@string/activity_title_create_proposal"
             android:screenOrientation="portrait"/>
 
         <activity
             android:name="ph.coreproc.android.devcup.activities.ProposalListActivity"
-            android:label="Bids"
+            android:label="@string/activity_title_bids"
             android:screenOrientation="portrait"/>
 
 
         <activity
             android:name="ph.coreproc.android.devcup.activities.WorkerInfoActivity"
-            android:label="Worker"
+            android:label="@string/activity_title_worker_info"
             android:screenOrientation="portrait"/>
 
         <activity
             android:name="ph.coreproc.android.devcup.activities.CloseRequestActivity"
-            android:label="Close Request"
+            android:label="@string/activity_title_close_request"
+            android:screenOrientation="portrait"/>
+
+        <activity
+            android:name="ph.coreproc.android.devcup.activities.MyReviewsActivity"
+            android:label="My Reviews"
             android:screenOrientation="portrait"/>
 
     </application>

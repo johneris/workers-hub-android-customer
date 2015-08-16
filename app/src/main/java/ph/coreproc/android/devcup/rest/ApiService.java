@@ -8,6 +8,7 @@ import ph.coreproc.android.devcup.models.Request;
 import ph.coreproc.android.devcup.models.Review;
 import ph.coreproc.android.devcup.rest.models.LoginRequest;
 import ph.coreproc.android.devcup.rest.models.LoginResponse;
+import ph.coreproc.android.devcup.rest.models.MyReviewsResponse;
 import ph.coreproc.android.devcup.rest.models.ProfessionResponse;
 import ph.coreproc.android.devcup.rest.models.RequestProposalResponse;
 import ph.coreproc.android.devcup.rest.models.RequestResponseGet;
@@ -136,6 +137,12 @@ public interface ApiService {
             @Path("id") String id,
             @Body Review review,
             Callback<Response> callback
+    );
+
+    @POST("/api/v1/reviews")
+    void getMyReviews(
+            @Header("X-Authorization") String authorization,
+            Callback<MyReviewsResponse> callback
     );
 
 }
