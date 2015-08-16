@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">DevCup</string>
+    <string name="app_name">Workers Hub</string>
 
     <string name="activity_title_example">Example Activity</string>
     <string name="activity_title_login">Login</string>

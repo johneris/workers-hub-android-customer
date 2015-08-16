@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -18,6 +19,7 @@ import ph.coreproc.android.devcup.models.Review;
 import ph.coreproc.android.devcup.rest.RestClient;
 import ph.coreproc.android.devcup.rest.Session;
 import ph.coreproc.android.devcup.rest.models.MyReviewsResponse;
+import ph.coreproc.android.devcup.utils.ModelUtil;
 import ph.coreproc.android.devcup.utils.UiUtil;
 import retrofit.Callback;
 import retrofit.RetrofitError;
@@ -27,6 +29,8 @@ import retrofit.client.Response;
  * Created by johneris on 8/16/15.
  */
 public class MyReviewsActivity extends BaseActivity {
+
+    public static final String TAG = "MyReviewsActivity";
 
     @InjectView(R.id.reviewContainer)
     LinearLayout mReviewContainer;
@@ -72,6 +76,7 @@ public class MyReviewsActivity extends BaseActivity {
                     @Override
                     public void success(MyReviewsResponse myReviewsResponse, Response response) {
                         reviews = myReviewsResponse.reviews;
+                        Log.i(TAG, "My Reviews = " + ModelUtil.toJsonString(myReviewsResponse));
                         refreshReviews();
                         progressDialog.dismiss();
                     }
