@@ -15,7 +15,9 @@ import butterknife.InjectView;
 import ph.coreproc.android.devcup.R;
 import ph.coreproc.android.devcup.activities.CreateProposalActivity;
 import ph.coreproc.android.devcup.activities.ProposalListActivity;
+import ph.coreproc.android.devcup.activities.WorkerInfoActivity;
 import ph.coreproc.android.devcup.models.Request;
+import ph.coreproc.android.devcup.models.RequestStatus;
 import ph.coreproc.android.devcup.models.UserType;
 import ph.coreproc.android.devcup.rest.Session;
 import ph.coreproc.android.devcup.utils.FormatUtil;
@@ -43,8 +45,6 @@ public class RVRequestAdapter extends RecyclerView.Adapter<RVRequestAdapter.Requ
     @Override
     public void onBindViewHolder(RequestViewHolder holder, int position) {
         final Request request = mRequests.get(position);
-
-        holder.mTvStatus.setText(request.status);
 
         holder.mTvSubject.setText(request.subject);
 
@@ -107,7 +107,25 @@ public class RVRequestAdapter extends RecyclerView.Adapter<RVRequestAdapter.Requ
             }
         });
 
+        holder.mTvWorker.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mContext.startActivity(WorkerInfoActivity.newIntent(mContext, request.));
+            }
+        });
+
+        holder.mTvStatus.setText(request.status);
+
+        if (request.status.equals(RequestStatus.OPEN.toString())) {
+            holder.mTvWorker.setVisibility(View.GONE);
+            holder.mTvProposals.setVisibility(View.VISIBLE);
+        } else {
+            holder.mTvWorker.setVisibility(View.VISIBLE);
+            holder.mTvProposals.setVisibility(View.GONE);
+        }
     }
+
+
 
     @Override
     public int getItemCount() {
@@ -152,6 +170,9 @@ public class RVRequestAdapter extends RecyclerView.Adapter<RVRequestAdapter.Requ
 
         @InjectView(R.id.tvProposals)
         TextView mTvProposals;
+
+        @InjectView(R.id.tvWorker)
+        TextView mTvWorker;
 
         @InjectView(R.id.tvStatus)
         TextView mTvStatus;

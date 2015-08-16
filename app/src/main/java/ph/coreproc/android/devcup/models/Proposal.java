@@ -13,6 +13,9 @@ public class Proposal {
     @SerializedName("worker")
     public String worker;
 
+    @SerializedName("worker_id")
+    public int workerID;
+
     @SerializedName("request")
     public String requestSubject;
 

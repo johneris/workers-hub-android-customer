@@ -8,10 +8,11 @@ import ph.coreproc.android.devcup.models.Request;
 import ph.coreproc.android.devcup.rest.models.LoginRequest;
 import ph.coreproc.android.devcup.rest.models.LoginResponse;
 import ph.coreproc.android.devcup.rest.models.ProfessionResponse;
+import ph.coreproc.android.devcup.rest.models.RequestProposalResponse;
 import ph.coreproc.android.devcup.rest.models.RequestResponseGet;
 import ph.coreproc.android.devcup.rest.models.RequestResponsePost;
 import ph.coreproc.android.devcup.rest.models.WorkerFeedResponse;
-import ph.coreproc.android.devcup.rest.models.RequestProposalResponse;
+import ph.coreproc.android.devcup.rest.models.WorkerInfoResponse;
 import retrofit.Callback;
 import retrofit.client.Response;
 import retrofit.http.Body;
@@ -106,5 +107,11 @@ public interface ApiService {
             Callback<Response> callback
     );
 
+    @GET("/api/v1/workers/{id}")
+    void getWorkerInfo(
+            @Header("X-Authorization") String authorization,
+            @Path("id") String id,
+            Callback<WorkerInfoResponse> callback
+    );
 
 }

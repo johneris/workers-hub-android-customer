@@ -67,6 +67,12 @@
             android:label="Bids"
             android:screenOrientation="portrait"/>
 
+
+        <activity
+            android:name="ph.coreproc.android.devcup.activities.WorkerInfoActivity"
+            android:label="Worker"
+            android:screenOrientation="portrait"/>
+
     </application>
 
 </manifest>

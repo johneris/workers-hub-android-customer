@@ -111,6 +111,14 @@
                     android:layout_marginRight="@dimen/spacing_small"
                     android:text="Bids"/>
 
+                <TextView
+                    android:id="@+id/tvWorker"
+                    style="@style/Button.Flat.Primary"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/spacing_small"
+                    android:text="Worker"/>
+
             </LinearLayout>
 
         </LinearLayout>
