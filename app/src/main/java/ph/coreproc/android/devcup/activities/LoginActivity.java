@@ -43,8 +43,8 @@ public class LoginActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mEtUsername.setText("test_worker_1");
-        mEtPassword.setText("w1");
+//        mEtUsername.setText("test_worker_1");
+//        mEtPassword.setText("w1");
     }
 
     @Override

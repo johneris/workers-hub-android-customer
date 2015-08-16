@@ -117,7 +117,7 @@ public class RVRequestAdapter extends RecyclerView.Adapter<RVRequestAdapter.Requ
         });
 
         holder.mTvWorker.setVisibility(
-                userType == UserType.CUSTOMER ?
+                userType == UserType.CUSTOMER && requestStatus != RequestStatus.OPEN ?
                     View.VISIBLE : View.GONE
         );
         holder.mTvWorker.setOnClickListener(new View.OnClickListener() {

@@ -104,20 +104,20 @@
             android:layout_marginTop="@dimen/spacing_medium"
             android:text="Login"/>
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/spacing_small"
-            android:gravity="center"
-            android:text="Not yet a member?"/>
+        <!--<TextView-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginBottom="@dimen/spacing_small"-->
+            <!--android:gravity="center"-->
+            <!--android:text="Not yet a member?"/>-->
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="Register"
-            android:textColor="@color/accent"
-            android:textStyle="bold"/>
+        <!--<TextView-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:gravity="center"-->
+            <!--android:text="Register"-->
+            <!--android:textColor="@color/accent"-->
+            <!--android:textStyle="bold"/>-->
 
     </LinearLayout>
 
