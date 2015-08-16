@@ -5,6 +5,7 @@ import java.util.List;
 import ph.coreproc.android.devcup.models.Contributor;
 import ph.coreproc.android.devcup.models.Proposal;
 import ph.coreproc.android.devcup.models.Request;
+import ph.coreproc.android.devcup.models.Review;
 import ph.coreproc.android.devcup.rest.models.LoginRequest;
 import ph.coreproc.android.devcup.rest.models.LoginResponse;
 import ph.coreproc.android.devcup.rest.models.ProfessionResponse;
@@ -13,6 +14,7 @@ import ph.coreproc.android.devcup.rest.models.RequestResponseGet;
 import ph.coreproc.android.devcup.rest.models.RequestResponsePost;
 import ph.coreproc.android.devcup.rest.models.WorkerFeedResponse;
 import ph.coreproc.android.devcup.rest.models.WorkerInfoResponse;
+import ph.coreproc.android.devcup.rest.models.WorkerProposalsResponse;
 import retrofit.Callback;
 import retrofit.client.Response;
 import retrofit.http.Body;
@@ -78,11 +80,17 @@ public interface ApiService {
             Callback<WorkerFeedResponse> callback
     );
 
-//    @GET("/api/v1/worker/proposals")
-//    void getRequestProposals(
-//            @Header("X-Authorization") String authorization,
-//            Callback<WorkerProposalResponse> callback
-//    );
+    @GET("/api/v1/worker/proposals")
+    void getWorkerProposals(
+            @Header("X-Authorization") String authorization,
+            Callback<WorkerProposalsResponse> callback
+    );
+
+    @GET("/api/v1/worker/accepted")
+    void getWorkerAccepted(
+            @Header("X-Authorization") String authorization,
+            Callback<WorkerProposalsResponse> callback
+    );
 
     @GET("/api/v1/requests/{request_id}/proposals/all")
     void getRequestProposals(
@@ -112,6 +120,14 @@ public interface ApiService {
             @Header("X-Authorization") String authorization,
             @Path("id") String id,
             Callback<WorkerInfoResponse> callback
+    );
+
+    @POST("/api/v1/requests/{id}/review")
+    void writeReview(
+            @Header("X-Authorization") String authorization,
+            @Path("id") String id,
+            @Body Review review,
+            Callback<Response> callback
     );
 
 }

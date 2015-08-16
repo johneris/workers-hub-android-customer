@@ -73,6 +73,11 @@
             android:label="Worker"
             android:screenOrientation="portrait"/>
 
+        <activity
+            android:name="ph.coreproc.android.devcup.activities.CloseRequestActivity"
+            android:label="Close Request"
+            android:screenOrientation="portrait"/>
+
     </application>
 
 </manifest>

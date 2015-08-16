@@ -20,8 +20,7 @@ import ph.coreproc.android.devcup.adapters.RVRequestAdapter;
 import ph.coreproc.android.devcup.models.Request;
 import ph.coreproc.android.devcup.rest.RestClient;
 import ph.coreproc.android.devcup.rest.Session;
-import ph.coreproc.android.devcup.rest.models.LoginResponse;
-import ph.coreproc.android.devcup.rest.models.RequestResponseGet;
+import ph.coreproc.android.devcup.rest.models.WorkerProposalsResponse;
 import ph.coreproc.android.devcup.utils.UiUtil;
 import retrofit.Callback;
 import retrofit.RetrofitError;
@@ -70,31 +69,28 @@ public class AcceptedRequestsFragment extends Fragment {
         mRvRequestAdapter = new RVRequestAdapter(mContext, mRequests);
         mRvRequests.setAdapter(mRvRequestAdapter);
 
-//        getRequests();
+        getAccepted();
     }
 
-    private void getRequests() {
+    private void getAccepted() {
 
         final ProgressDialog progressDialog = UiUtil.getProgressDialog(mContext, "Please wait...");
         progressDialog.show();
 
-        RestClient.getAPIService().getRequests(
+        RestClient.getAPIService().getWorkerAccepted(
                 Session.getInstance().getApiKey(),
-                new Callback<RequestResponseGet>() {
+                new Callback<WorkerProposalsResponse>() {
                     @Override
-                    public void success(RequestResponseGet requestResponseGet, Response response) {
-//                        Log.i(TAG, "RequestRequest = " + ModelUtil.toJsonString(requestResponsePost));
-                        mRequests = requestResponseGet.requests;
+                    public void success(WorkerProposalsResponse workerProposalsResponse, Response response) {
+                        for (WorkerProposalsResponse.RequestProposal requestProposal : workerProposalsResponse.proposals) {
+                            mRequests.add(requestProposal.request);
+                        }
                         mRvRequestAdapter.changeData(mRequests);
                         progressDialog.dismiss();
                     }
 
                     @Override
                     public void failure(RetrofitError error) {
-                        try {
-                            LoginResponse loginResponse = (LoginResponse) error.getBodyAs(LoginResponse.class);
-                        } catch (Exception e) {
-                        }
                         progressDialog.dismiss();
                     }
                 }

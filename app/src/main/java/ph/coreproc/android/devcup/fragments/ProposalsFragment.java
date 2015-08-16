@@ -1,5 +1,6 @@
 package ph.coreproc.android.devcup.fragments;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -15,8 +16,15 @@ import java.util.List;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import ph.coreproc.android.devcup.R;
-import ph.coreproc.android.devcup.adapters.RVProposalsAdapter;
-import ph.coreproc.android.devcup.models.Proposal;
+import ph.coreproc.android.devcup.adapters.RVRequestAdapter;
+import ph.coreproc.android.devcup.models.Request;
+import ph.coreproc.android.devcup.rest.RestClient;
+import ph.coreproc.android.devcup.rest.Session;
+import ph.coreproc.android.devcup.rest.models.WorkerProposalsResponse;
+import ph.coreproc.android.devcup.utils.UiUtil;
+import retrofit.Callback;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
 
 /**
  * Created by johneris on 8/16/15.
@@ -27,11 +35,11 @@ public class ProposalsFragment extends Fragment {
 
     public Context mContext;
 
-    @InjectView(R.id.rvProposals)
-    RecyclerView mRvProposals;
+    @InjectView(R.id.rvRequests)
+    RecyclerView mRvRequests;
 
-    List<Proposal> mProposals;
-    RVProposalsAdapter mProposalsAdapter;
+    List<Request> mRequests;
+    RVRequestAdapter mRvRequestAdapter;
 
     public static ProposalsFragment newInstance() {
         ProposalsFragment proposalsFragment = new ProposalsFragment();
@@ -55,41 +63,38 @@ public class ProposalsFragment extends Fragment {
     private void initialize() {
         LinearLayoutManager llm = new LinearLayoutManager(mContext);
 
-        mProposals = new ArrayList<>();
-        mRvProposals.setLayoutManager(llm);
+        mRequests = new ArrayList<>();
+        mRvRequests.setLayoutManager(llm);
 
-        mProposalsAdapter = new RVProposalsAdapter(mContext, mProposals);
-        mRvProposals.setAdapter(mProposalsAdapter);
+        mRvRequestAdapter = new RVRequestAdapter(mContext, mRequests);
+        mRvRequests.setAdapter(mRvRequestAdapter);
 
-//        getProposals();
+        getBids();
     }
 
-    private void getProposals() {
+    private void getBids() {
 
-//        final ProgressDialog progressDialog = UiUtil.getProgressDialog(mContext, "Please wait...");
-//        progressDialog.show();
-//
-//        RestClient.getAPIService().getRequests(
-//                Session.getInstance().getApiKey(),
-//                new Callback<RequestResponsePost>() {
-//                    @Override
-//                    public void success(RequestResponsePost requestResponsePost, Response response) {
-//                        Log.i(TAG, "RequestRequest = " + ModelUtil.toJsonString(requestResponsePost));
-//                        mProposals = requestResponsePost.requests;
-//                        mProposalsAdapter.changeData(mProposals);
-//                        progressDialog.dismiss();
-//                    }
-//
-//                    @Override
-//                    public void failure(RetrofitError error) {
-//                        try {
-//                            LoginResponse loginResponse = (LoginResponse) error.getBodyAs(LoginResponse.class);
-//                        } catch (Exception e) {
-//                        }
-//                        progressDialog.dismiss();
-//                    }
-//                }
-//        );
+        final ProgressDialog progressDialog = UiUtil.getProgressDialog(mContext, "Please wait...");
+        progressDialog.show();
+
+        RestClient.getAPIService().getWorkerProposals(
+                Session.getInstance().getApiKey(),
+                new Callback<WorkerProposalsResponse>() {
+                    @Override
+                    public void success(WorkerProposalsResponse workerProposalsResponse, Response response) {
+                        for(WorkerProposalsResponse.RequestProposal requestProposal : workerProposalsResponse.proposals) {
+                            mRequests.add(requestProposal.request);
+                        }
+                        mRvRequestAdapter.changeData(mRequests);
+                        progressDialog.dismiss();
+                    }
+
+                    @Override
+                    public void failure(RetrofitError error) {
+                        progressDialog.dismiss();
+                    }
+                }
+        );
 
     }
 

@@ -71,7 +71,7 @@ public class WorkerHomeActivity extends BaseActivity {
     }
 
     private void actionReviewsMenuItem() {
-
+        startActivity(WorkerInfoActivity.newIntent(mContext, Session.getInstance().getUserID()));
     }
 
     private void actionLogout() {

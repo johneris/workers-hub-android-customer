@@ -13,6 +13,7 @@ import java.util.List;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import ph.coreproc.android.devcup.R;
+import ph.coreproc.android.devcup.activities.CloseRequestActivity;
 import ph.coreproc.android.devcup.activities.CreateProposalActivity;
 import ph.coreproc.android.devcup.activities.ProposalListActivity;
 import ph.coreproc.android.devcup.activities.WorkerInfoActivity;
@@ -92,7 +93,7 @@ public class RVRequestAdapter extends RecyclerView.Adapter<RVRequestAdapter.Requ
         holder.mTvReview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                mContext.startActivity(CloseRequestActivity.newIntent(mContext, request.id + ""));
             }
         });
 
