@@ -110,7 +110,8 @@ public class RVRequestAdapter extends RecyclerView.Adapter<RVRequestAdapter.Requ
         holder.mTvWorker.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mContext.startActivity(WorkerInfoActivity.newIntent(mContext, request.));
+                mContext.startActivity(WorkerInfoActivity.newIntent(mContext,
+                        request.acceptedWorkerID));
             }
         });
 

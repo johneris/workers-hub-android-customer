@@ -1,5 +1,6 @@
 package ph.coreproc.android.devcup.activities;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,6 +17,7 @@ import ph.coreproc.android.devcup.models.Worker;
 import ph.coreproc.android.devcup.rest.RestClient;
 import ph.coreproc.android.devcup.rest.Session;
 import ph.coreproc.android.devcup.rest.models.WorkerInfoResponse;
+import ph.coreproc.android.devcup.utils.UiUtil;
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
@@ -70,6 +72,16 @@ public class WorkerInfoActivity extends BaseActivity {
 
     private void initialize() {
         mWorker = new Worker();
+
+        mToolbar.setNavigationIcon(R.drawable.ic_arrow_back_white_24dp);
+        mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
+
+        getWorkerInfo();
     }
 
     private void refreshWorkerInfo() {
@@ -93,6 +105,9 @@ public class WorkerInfoActivity extends BaseActivity {
     }
 
     private void getWorkerInfo() {
+        final ProgressDialog progressDialog = UiUtil.getProgressDialog(mContext, "Please wait...");
+        progressDialog.show();
+
         RestClient.getAPIService().getWorkerInfo(
                 Session.getInstance().getApiKey(),
                 mWorkerID,
@@ -101,11 +116,12 @@ public class WorkerInfoActivity extends BaseActivity {
                     public void success(WorkerInfoResponse workerInfoResponse, Response response) {
                         mWorker = workerInfoResponse.worker;
                         refreshWorkerInfo();
+                        progressDialog.dismiss();
                     }
 
                     @Override
                     public void failure(RetrofitError error) {
-
+                        progressDialog.dismiss();
                     }
                 }
         );

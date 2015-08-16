@@ -27,6 +27,9 @@ public class Request {
     @SerializedName("status")
     public String status;
 
+    @SerializedName("accepted_worker_id")
+    public String acceptedWorkerID;
+
     @SerializedName("tags")
     public List<String> tags;
 
