@@ -16,8 +16,8 @@ import java.util.List;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import ph.coreproc.android.devcup.R;
-import ph.coreproc.android.devcup.adapters.RVRequestAdapter;
-import ph.coreproc.android.devcup.models.Request;
+import ph.coreproc.android.devcup.adapters.RVProposalsAdapter;
+import ph.coreproc.android.devcup.models.Proposal;
 import ph.coreproc.android.devcup.rest.RestClient;
 import ph.coreproc.android.devcup.rest.Session;
 import ph.coreproc.android.devcup.rest.models.WorkerProposalsResponse;
@@ -35,11 +35,11 @@ public class ProposalsFragment extends Fragment {
 
     public Context mContext;
 
-    @InjectView(R.id.rvRequests)
-    RecyclerView mRvRequests;
+    @InjectView(R.id.rvProposals)
+    RecyclerView mRvProposals;
 
-    List<Request> mRequests;
-    RVRequestAdapter mRvRequestAdapter;
+    List<Proposal> mProposals;
+    RVProposalsAdapter mRvProposalsAdapter;
 
     public static ProposalsFragment newInstance() {
         ProposalsFragment proposalsFragment = new ProposalsFragment();
@@ -63,11 +63,11 @@ public class ProposalsFragment extends Fragment {
     private void initialize() {
         LinearLayoutManager llm = new LinearLayoutManager(mContext);
 
-        mRequests = new ArrayList<>();
-        mRvRequests.setLayoutManager(llm);
+        mProposals = new ArrayList<>();
+        mRvProposals.setLayoutManager(llm);
 
-        mRvRequestAdapter = new RVRequestAdapter(mContext, mRequests);
-        mRvRequests.setAdapter(mRvRequestAdapter);
+        mRvProposalsAdapter = new RVProposalsAdapter(mContext, mProposals);
+        mRvProposals.setAdapter(mRvProposalsAdapter);
 
         getBids();
     }
@@ -83,9 +83,13 @@ public class ProposalsFragment extends Fragment {
                     @Override
                     public void success(WorkerProposalsResponse workerProposalsResponse, Response response) {
                         for(WorkerProposalsResponse.RequestProposal requestProposal : workerProposalsResponse.proposals) {
-                            mRequests.add(requestProposal.request);
+                            Proposal proposal = new Proposal();
+                            proposal.message = requestProposal.message;
+                            proposal.cost = requestProposal.cost;
+                            proposal.requestSubject = requestProposal.request.subject;
+                            mProposals.add(proposal);
                         }
-                        mRvRequestAdapter.changeData(mRequests);
+                        mRvProposalsAdapter.changeData(mProposals);
                         progressDialog.dismiss();
                     }
 

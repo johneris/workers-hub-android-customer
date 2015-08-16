@@ -58,8 +58,13 @@ public class RVProposalsAdapter extends RecyclerView.Adapter<RVProposalsAdapter.
     public void onBindViewHolder(ProposalViewHolder holder, int position) {
         final Proposal proposal = mProposals.get(position);
 
-        holder.mTvWorkerName.setText(proposal.worker);
-        holder.mTvCost.setText(FormatUtil.toDecimalFormat(proposal.cost));
+        if(Session.getInstance().getUserType() == UserType.CUSTOMER) {
+            holder.mTvWorkerName.setText(proposal.worker);
+        } else {
+            holder.mTvWorkerName.setText(proposal.requestSubject);
+        }
+
+        holder.mTvCost.setText(FormatUtil.toPesoFormat(proposal.cost));
         holder.mTvDescription.setText(proposal.message);
 
         holder.mTvAccept.setVisibility(

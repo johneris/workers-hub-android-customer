@@ -123,7 +123,15 @@ public interface ApiService {
     );
 
     @POST("/api/v1/requests/{id}/review")
-    void writeReview(
+    void writeReviewCustomer(
+            @Header("X-Authorization") String authorization,
+            @Path("id") String id,
+            @Body Review review,
+            Callback<Response> callback
+    );
+
+    @POST("/api/v1/worker/requests/{id}/review")
+    void writeReviewWorker(
             @Header("X-Authorization") String authorization,
             @Path("id") String id,
             @Body Review review,

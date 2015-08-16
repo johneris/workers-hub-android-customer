@@ -11,6 +11,7 @@ import butterknife.InjectView;
 import butterknife.OnClick;
 import ph.coreproc.android.devcup.R;
 import ph.coreproc.android.devcup.models.Review;
+import ph.coreproc.android.devcup.models.UserType;
 import ph.coreproc.android.devcup.rest.RestClient;
 import ph.coreproc.android.devcup.rest.Session;
 import ph.coreproc.android.devcup.utils.UiUtil;
@@ -64,6 +65,15 @@ public class CloseRequestActivity extends BaseActivity {
 
     @OnClick(R.id.btnSubmit)
     public void closeRequest() {
+        if(Session.getInstance().getUserType() == UserType.CUSTOMER) {
+            closeRequestCustomer();
+        } else {
+            closeRequestWorker();
+        }
+    }
+
+
+    public void closeRequestCustomer() {
         int rating = (int) mRatingBar.getRating();
         String strReview = mEtReview.getText().toString();
 
@@ -71,7 +81,35 @@ public class CloseRequestActivity extends BaseActivity {
         review.starRating = rating;
         review.message = strReview;
 
-        RestClient.getAPIService().writeReview(
+        RestClient.getAPIService().writeReviewCustomer(
+                Session.getInstance().getApiKey(),
+                mRequestID,
+                review,
+                new Callback<Response>() {
+                    @Override
+                    public void success(Response response, Response response2) {
+                        UiUtil.showMessageDialog(getSupportFragmentManager(), "Request successfully closed.");
+                        CloseRequestActivity.this.finish();
+                    }
+
+                    @Override
+                    public void failure(RetrofitError error) {
+                        UiUtil.showMessageDialog(getSupportFragmentManager(), "Failed to close request and submit review.");
+                        CloseRequestActivity.this.finish();
+                    }
+                }
+        );
+    }
+
+    public void closeRequestWorker() {
+        int rating = (int) mRatingBar.getRating();
+        String strReview = mEtReview.getText().toString();
+
+        Review review = new Review();
+        review.starRating = rating;
+        review.message = strReview;
+
+        RestClient.getAPIService().writeReviewWorker(
                 Session.getInstance().getApiKey(),
                 mRequestID,
                 review,
