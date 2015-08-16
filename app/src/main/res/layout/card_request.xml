@@ -22,7 +22,7 @@
                 android:text="Subject"/>
 
             <TextView
-                android:id="@+id/tvRange"
+                android:id="@+id/tvCost"
                 style="@style/Text.Subhead"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -109,7 +109,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="@dimen/spacing_small"
-                    android:text="Proposals"/>
+                    android:text="Bids"/>
 
             </LinearLayout>
 

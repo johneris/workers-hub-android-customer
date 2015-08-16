@@ -3,6 +3,7 @@ package ph.coreproc.android.devcup.rest;
 import java.util.List;
 
 import ph.coreproc.android.devcup.models.Contributor;
+import ph.coreproc.android.devcup.models.Proposal;
 import ph.coreproc.android.devcup.models.Request;
 import ph.coreproc.android.devcup.rest.models.LoginRequest;
 import ph.coreproc.android.devcup.rest.models.LoginResponse;
@@ -10,7 +11,9 @@ import ph.coreproc.android.devcup.rest.models.ProfessionResponse;
 import ph.coreproc.android.devcup.rest.models.RequestResponseGet;
 import ph.coreproc.android.devcup.rest.models.RequestResponsePost;
 import ph.coreproc.android.devcup.rest.models.WorkerFeedResponse;
+import ph.coreproc.android.devcup.rest.models.RequestProposalResponse;
 import retrofit.Callback;
+import retrofit.client.Response;
 import retrofit.http.Body;
 import retrofit.http.GET;
 import retrofit.http.Header;
@@ -74,7 +77,34 @@ public interface ApiService {
             Callback<WorkerFeedResponse> callback
     );
 
-    @POST("/api/v1/")
+//    @GET("/api/v1/worker/proposals")
+//    void getRequestProposals(
+//            @Header("X-Authorization") String authorization,
+//            Callback<WorkerProposalResponse> callback
+//    );
+
+    @GET("/api/v1/requests/{request_id}/proposals/all")
+    void getRequestProposals(
+            @Header("X-Authorization") String authorization,
+            @Path("request_id") String requestID,
+            Callback<RequestProposalResponse> callback
+    );
+
+    @GET("/api/v1/requests/{request_id}/proposals/{proposal_id}")
+    void acceptProposal(
+            @Header("X-Authorization") String authorization,
+            @Path("request_id") String requestID,
+            @Path("proposal_id") String proposalID,
+            Callback<Response> callback
+    );
+
+    @POST("/api/v1/requests/{id}/proposals")
+    void createProposal(
+            @Header("X-Authorization") String authorization,
+            @Path("id") String requestID,
+            @Body Proposal proposal,
+            Callback<Response> callback
+    );
 
 
 }

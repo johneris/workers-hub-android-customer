@@ -62,6 +62,11 @@
             android:label="Create Proposal"
             android:screenOrientation="portrait"/>
 
+        <activity
+            android:name="ph.coreproc.android.devcup.activities.ProposalListActivity"
+            android:label="Bids"
+            android:screenOrientation="portrait"/>
+
     </application>
 
 </manifest>

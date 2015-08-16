@@ -21,6 +21,12 @@ public class Request {
     @SerializedName("description")
     public String description;
 
+    @SerializedName("id")
+    public int id;
+
+    @SerializedName("status")
+    public String status;
+
     @SerializedName("tags")
     public List<String> tags;
 

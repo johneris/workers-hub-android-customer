@@ -42,7 +42,9 @@ public class RVRequestAdapter extends RecyclerView.Adapter<RVRequestAdapter.Requ
 
     @Override
     public void onBindViewHolder(RequestViewHolder holder, int position) {
-        Request request = mRequests.get(position);
+        final Request request = mRequests.get(position);
+
+        holder.mTvStatus.setText(request.status);
 
         holder.mTvSubject.setText(request.subject);
 
@@ -79,7 +81,7 @@ public class RVRequestAdapter extends RecyclerView.Adapter<RVRequestAdapter.Requ
         holder.mTvPropose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mContext.startActivity(CreateProposalActivity.newIntent(mContext));
+                mContext.startActivity(CreateProposalActivity.newIntent(mContext, request.id + ""));
             }
         });
 
@@ -101,7 +103,7 @@ public class RVRequestAdapter extends RecyclerView.Adapter<RVRequestAdapter.Requ
         holder.mTvProposals.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mContext.startActivity(ProposalListActivity.newIntent(mContext));
+                mContext.startActivity(ProposalListActivity.newIntent(mContext, request.id + ""));
             }
         });
 
@@ -127,7 +129,7 @@ public class RVRequestAdapter extends RecyclerView.Adapter<RVRequestAdapter.Requ
         @InjectView(R.id.tvSubject)
         TextView mTvSubject;
 
-        @InjectView(R.id.tvRange)
+        @InjectView(R.id.tvCost)
         TextView mTvRange;
 
         @InjectView(R.id.tvDescription)

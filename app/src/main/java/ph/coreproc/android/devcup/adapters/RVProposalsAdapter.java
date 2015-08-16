@@ -2,6 +2,7 @@ package ph.coreproc.android.devcup.adapters;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,18 +14,36 @@ import butterknife.ButterKnife;
 import butterknife.InjectView;
 import ph.coreproc.android.devcup.R;
 import ph.coreproc.android.devcup.models.Proposal;
+import ph.coreproc.android.devcup.models.UserType;
+import ph.coreproc.android.devcup.rest.RestClient;
+import ph.coreproc.android.devcup.rest.Session;
+import ph.coreproc.android.devcup.utils.FormatUtil;
+import retrofit.Callback;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
 
 /**
  * Created by johneris on 6/8/2015.
  */
 public class RVProposalsAdapter extends RecyclerView.Adapter<RVProposalsAdapter.ProposalViewHolder> {
 
+    public static final String TAG = "RVProposalsAdapter";
+
     List<Proposal> mProposals;
+    String mRequestID;
+
     private Context mContext;
 
     public RVProposalsAdapter(Context context, List<Proposal> proposals) {
         mContext = context;
         mProposals = proposals;
+        mRequestID = null;
+    }
+
+    public RVProposalsAdapter(Context context, List<Proposal> proposals, String requestID) {
+        mContext = context;
+        mProposals = proposals;
+        mRequestID = requestID;
     }
 
     @Override
@@ -36,18 +55,41 @@ public class RVProposalsAdapter extends RecyclerView.Adapter<RVProposalsAdapter.
 
     @Override
     public void onBindViewHolder(ProposalViewHolder holder, int position) {
-        Proposal proposal = mProposals.get(position);
+        final Proposal proposal = mProposals.get(position);
 
-        holder.mTvRange.setText(proposal.range);
+        holder.mTvWorker.setText(proposal.worker);
+        holder.mTvCost.setText(FormatUtil.toDecimalFormat(proposal.cost));
         holder.mTvDescription.setText(proposal.message);
 
-        holder.mTvAccept.setVisibility(View.VISIBLE);
+        holder.mTvAccept.setVisibility(
+                Session.getInstance().getUserType() == UserType.CUSTOMER ?
+                View.VISIBLE : View.GONE
+        );
         holder.mTvAccept.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                acceptProposal(proposal);
             }
         });
+    }
+
+    private void acceptProposal(Proposal proposal) {
+        RestClient.getAPIService().acceptProposal(
+                Session.getInstance().getApiKey(),
+                mRequestID,
+                proposal.id + "",
+                new Callback<Response>() {
+                    @Override
+                    public void success(Response response, Response response2) {
+                        Log.i(TAG, "AcceptProposal " + response.getStatus());
+                    }
+
+                    @Override
+                    public void failure(RetrofitError error) {
+                        Log.i(TAG, "AcceptProposal " + error.getMessage());
+                    }
+                }
+        );
     }
 
     @Override
@@ -67,8 +109,11 @@ public class RVProposalsAdapter extends RecyclerView.Adapter<RVProposalsAdapter.
 
     public static class ProposalViewHolder extends RecyclerView.ViewHolder {
 
-        @InjectView(R.id.tvRange)
-        TextView mTvRange;
+        @InjectView(R.id.tvWorker)
+        TextView mTvWorker;
+
+        @InjectView(R.id.tvCost)
+        TextView mTvCost;
 
         @InjectView(R.id.tvDescription)
         TextView mTvDescription;
