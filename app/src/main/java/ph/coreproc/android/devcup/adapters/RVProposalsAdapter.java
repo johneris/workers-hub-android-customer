@@ -13,6 +13,7 @@ import java.util.List;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import ph.coreproc.android.devcup.R;
+import ph.coreproc.android.devcup.activities.WorkerInfoActivity;
 import ph.coreproc.android.devcup.models.Proposal;
 import ph.coreproc.android.devcup.models.UserType;
 import ph.coreproc.android.devcup.rest.RestClient;
@@ -57,13 +58,13 @@ public class RVProposalsAdapter extends RecyclerView.Adapter<RVProposalsAdapter.
     public void onBindViewHolder(ProposalViewHolder holder, int position) {
         final Proposal proposal = mProposals.get(position);
 
-        holder.mTvWorker.setText(proposal.worker);
+        holder.mTvWorkerName.setText(proposal.worker);
         holder.mTvCost.setText(FormatUtil.toDecimalFormat(proposal.cost));
         holder.mTvDescription.setText(proposal.message);
 
         holder.mTvAccept.setVisibility(
                 Session.getInstance().getUserType() == UserType.CUSTOMER ?
-                View.VISIBLE : View.GONE
+                        View.VISIBLE : View.GONE
         );
         holder.mTvAccept.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -71,6 +72,18 @@ public class RVProposalsAdapter extends RecyclerView.Adapter<RVProposalsAdapter.
                 acceptProposal(proposal);
             }
         });
+
+        holder.mTvWorker.setVisibility(
+                Session.getInstance().getUserType() == UserType.CUSTOMER ?
+                        View.VISIBLE : View.GONE
+        );
+        holder.mTvWorker.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mContext.startActivity(WorkerInfoActivity.newIntent(mContext, proposal.workerID + ""));
+            }
+        });
+
     }
 
     private void acceptProposal(Proposal proposal) {
@@ -109,8 +122,8 @@ public class RVProposalsAdapter extends RecyclerView.Adapter<RVProposalsAdapter.
 
     public static class ProposalViewHolder extends RecyclerView.ViewHolder {
 
-        @InjectView(R.id.tvWorker)
-        TextView mTvWorker;
+        @InjectView(R.id.tvWorkerName)
+        TextView mTvWorkerName;
 
         @InjectView(R.id.tvCost)
         TextView mTvCost;
@@ -120,6 +133,9 @@ public class RVProposalsAdapter extends RecyclerView.Adapter<RVProposalsAdapter.
 
         @InjectView(R.id.tvAccept)
         TextView mTvAccept;
+
+        @InjectView(R.id.tvWorker)
+        TextView mTvWorker;
 
         ProposalViewHolder(View itemView) {
             super(itemView);

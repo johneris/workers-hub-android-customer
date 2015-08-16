@@ -16,6 +16,7 @@ public class MainActivity extends BaseActivity {
 
         Intent intent = new Intent(mContext, LoginActivity.class);
         startActivity(intent);
+        finish();
     }
 
     @Override

@@ -15,8 +15,8 @@ public class RestClient {
         LIVE, DEV
     }
 
-    private static final String BASE_URL_LIVE = "http://workers-hub.herokuapp.com";
-    private static final String BASE_URL_DEV = "http://workers-hub.herokuapp.com";
+    private static final String BASE_URL_LIVE = "http://workers-hub2.herokuapp.com";
+    private static final String BASE_URL_DEV = "http://workers-hub2.herokuapp.com";
     private static BaseUrlMode baseUrlMode;
 
     private static ApiService apiService;

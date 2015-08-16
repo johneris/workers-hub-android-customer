@@ -13,6 +13,10 @@
     <color name="divider">#B6B6B6</color>
     <color name="text_icon">#FFFFFF</color>
 
+    <color name="status_open">#89C4F4</color>
+    <color name="status_accepted">#dfba49</color>
+    <color name="status_closed">#F3565D</color>
+
     <color name="tab_title">@android:color/white</color>
 
     <color name="button_primary_background">@color/primary</color>

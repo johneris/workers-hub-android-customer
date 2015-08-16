@@ -47,6 +47,20 @@ public class RVRequestAdapter extends RecyclerView.Adapter<RVRequestAdapter.Requ
     public void onBindViewHolder(RequestViewHolder holder, int position) {
         final Request request = mRequests.get(position);
 
+        UserType userType = Session.getInstance().getUserType();
+        RequestStatus requestStatus;
+
+        if (request.status.equals(RequestStatus.OPEN.toString())) {
+            requestStatus = RequestStatus.OPEN;
+            holder.mTvStatus.setTextColor(mContext.getResources().getColor(RequestStatus.OPEN.getTextColor()));
+        } else if (request.status.equals(RequestStatus.ACCEPTED.toString())) {
+            requestStatus = RequestStatus.ACCEPTED;
+            holder.mTvStatus.setTextColor(mContext.getResources().getColor(RequestStatus.ACCEPTED.getTextColor()));
+        } else {
+            requestStatus = RequestStatus.CLOSED;
+            holder.mTvStatus.setTextColor(mContext.getResources().getColor(RequestStatus.CLOSED.getTextColor()));
+        }
+
         holder.mTvSubject.setText(request.subject);
 
         holder.mTvRange.setText(FormatUtil.toPesoFormat(request.rangeMin) +
@@ -68,15 +82,8 @@ public class RVRequestAdapter extends RecyclerView.Adapter<RVRequestAdapter.Requ
             holder.mTagsContainer.addView(tagView);
         }
 
-        holder.mTvMore.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
-
         holder.mTvPropose.setVisibility(
-                Session.getInstance().getUserType() == UserType.WORKER ?
+                requestStatus == RequestStatus.OPEN && userType == UserType.WORKER ?
                         View.VISIBLE : View.GONE
         );
         holder.mTvPropose.setOnClickListener(new View.OnClickListener() {
@@ -87,7 +94,8 @@ public class RVRequestAdapter extends RecyclerView.Adapter<RVRequestAdapter.Requ
         });
 
         holder.mTvReview.setVisibility(
-                Session.getInstance().getUserType() == UserType.CUSTOMER ?
+                (requestStatus == RequestStatus.ACCEPTED && userType == UserType.CUSTOMER) ||
+                        (requestStatus == RequestStatus.CLOSED && userType == UserType.WORKER) ?
                         View.VISIBLE : View.GONE
         );
         holder.mTvReview.setOnClickListener(new View.OnClickListener() {
@@ -98,7 +106,7 @@ public class RVRequestAdapter extends RecyclerView.Adapter<RVRequestAdapter.Requ
         });
 
         holder.mTvProposals.setVisibility(
-                Session.getInstance().getUserType() == UserType.CUSTOMER ?
+                userType == UserType.CUSTOMER ?
                         View.VISIBLE : View.GONE
         );
         holder.mTvProposals.setOnClickListener(new View.OnClickListener() {
@@ -108,6 +116,10 @@ public class RVRequestAdapter extends RecyclerView.Adapter<RVRequestAdapter.Requ
             }
         });
 
+        holder.mTvWorker.setVisibility(
+                userType == UserType.CUSTOMER ?
+                    View.VISIBLE : View.GONE
+        );
         holder.mTvWorker.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -118,15 +130,8 @@ public class RVRequestAdapter extends RecyclerView.Adapter<RVRequestAdapter.Requ
 
         holder.mTvStatus.setText(request.status);
 
-        if (request.status.equals(RequestStatus.OPEN.toString())) {
-            holder.mTvWorker.setVisibility(View.GONE);
-            holder.mTvProposals.setVisibility(View.VISIBLE);
-        } else {
-            holder.mTvWorker.setVisibility(View.VISIBLE);
-            holder.mTvProposals.setVisibility(View.GONE);
-        }
-    }
 
+    }
 
 
     @Override
@@ -161,9 +166,6 @@ public class RVRequestAdapter extends RecyclerView.Adapter<RVRequestAdapter.Requ
         @InjectView(R.id.imagesContainer)
         LinearLayout mImagesContainer;
 
-        @InjectView(R.id.tvMore)
-        TextView mTvMore;
-
         @InjectView(R.id.tvPropose)
         TextView mTvPropose;
 
@@ -173,7 +175,7 @@ public class RVRequestAdapter extends RecyclerView.Adapter<RVRequestAdapter.Requ
         @InjectView(R.id.tvProposals)
         TextView mTvProposals;
 
-        @InjectView(R.id.tvWorker)
+        @InjectView(R.id.tvWorkerName)
         TextView mTvWorker;
 
         @InjectView(R.id.tvStatus)

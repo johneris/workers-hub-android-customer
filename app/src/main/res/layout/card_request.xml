@@ -79,19 +79,11 @@
                 android:layout_marginTop="@dimen/spacing_medium">
 
                 <TextView
-                    android:id="@+id/tvMore"
-                    style="@style/Button.Flat.Primary"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="@dimen/spacing_small"
-                    android:text="More"/>
-
-                <TextView
                     android:id="@+id/tvPropose"
                     style="@style/Button.Flat.Primary"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="@dimen/spacing_small"
+                    android:layout_marginRight="@dimen/spacing_medium"
                     android:text="Bid"/>
 
 
@@ -100,7 +92,7 @@
                     style="@style/Button.Flat.Primary"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="@dimen/spacing_small"
+                    android:layout_marginRight="@dimen/spacing_medium"
                     android:text="Close"/>
 
                 <TextView
@@ -108,15 +100,15 @@
                     style="@style/Button.Flat.Primary"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="@dimen/spacing_small"
+                    android:layout_marginRight="@dimen/spacing_medium"
                     android:text="Bids"/>
 
                 <TextView
-                    android:id="@+id/tvWorker"
+                    android:id="@+id/tvWorkerName"
                     style="@style/Button.Flat.Primary"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="@dimen/spacing_small"
+                    android:layout_marginRight="@dimen/spacing_medium"
                     android:text="Worker"/>
 
             </LinearLayout>
@@ -133,6 +125,7 @@
         android:layout_marginRight="@dimen/spacing_medium"
         android:layout_marginTop="@dimen/spacing_medium"
         android:text="Status"
+        android:textStyle="bold"
         android:textAllCaps="true"/>
 
 </RelativeLayout>

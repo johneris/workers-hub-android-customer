@@ -15,7 +15,7 @@
             android:padding="@dimen/spacing_medium">
 
             <TextView
-                android:id="@+id/tvWorker"
+                android:id="@+id/tvWorkerName"
                 style="@style/Text.Title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -35,13 +35,27 @@
                 android:layout_marginTop="@dimen/spacing_small"
                 android:text="Some really long description"/>
 
-            <TextView
-                android:id="@+id/tvAccept"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                style="@style/Button.Flat.Primary"
-                android:layout_marginTop="@dimen/spacing_medium"
-                android:text="Accept"/>
+                android:layout_marginTop="@dimen/spacing_medium">
+
+                <TextView
+                    android:id="@+id/tvAccept"
+                    style="@style/Button.Flat.Primary"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/spacing_medium"
+                    android:text="Accept"/>
+
+                <TextView
+                    android:id="@+id/tvWorker"
+                    style="@style/Button.Flat.Primary"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Worker"/>
+            </LinearLayout>
+
 
         </LinearLayout>
 
